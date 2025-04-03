@@ -1,0 +1,7 @@
+# requirements.txt: Lists Python dependencies for NeuroNap
+pandas
+scikit-learn
+matplotlib
+numpy
+scipy
+reportlab
