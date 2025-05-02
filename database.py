@@ -83,3 +83,21 @@ def login_user(email, password):
     result = c.fetchone()
     conn.close()
     return result if result else None
+
+def log_sleep(user_id, sleep_time, wake_time, energy_level, stress_level, activity_level):
+    """Log a sleep entry for a user.
+
+    Args:
+        user_id (int): User's ID.
+        sleep_time (str): Sleep start time in HH:MM.
+        wake_time (str): Wake time in HH:MM.
+        energy_level (int): Energy level (1-10).
+        stress_level (int): Stress level (1-10).
+        activity_level (int): Physical activity in minutes.
+    """
+    conn = sqlite3.connect("neuronap.db")
+    c = conn.cursor()
+    c.execute("INSERT INTO sleep_logs (user_id, sleep_time, wake_time, energy_level, stress_level, activity_level) VALUES (?, ?, ?, ?, ?, ?)",
+              (user_id, sleep_time, wake_time, energy_level, stress_level, activity_level))
+    conn.commit()
+    conn.close()
