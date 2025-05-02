@@ -101,3 +101,20 @@ def log_sleep(user_id, sleep_time, wake_time, energy_level, stress_level, activi
               (user_id, sleep_time, wake_time, energy_level, stress_level, activity_level))
     conn.commit()
     conn.close()
+
+def get_user_sleep_logs(user_id):
+    """Retrieve all sleep logs for a user.
+
+    Args:
+        user_id (int): User's ID.
+
+    Returns:
+        list: List of tuples (sleep_time, wake_time, energy_level, stress_level, activity_level).
+    """
+    conn = sqlite3.connect("neuronap.db")
+    c = conn.cursor()
+    c.execute("SELECT sleep_time, wake_time, energy_level, stress_level, activity_level FROM sleep_logs WHERE user_id = ?",
+              (user_id,))
+    logs = c.fetchall()
+    conn.close()
+    return logs
